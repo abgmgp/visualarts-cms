@@ -114,6 +114,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CareerOpportunities.cs" />
+    <Compile Include="Controllers\Tools.cs" />
+    <Compile Include="Controllers\CurrentTrendsController.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +199,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\CurrentTrends\Index.cshtml" />
+    <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\CareerOpportunities\Index.cshtml" />
+    <Content Include="Views\Tools\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
