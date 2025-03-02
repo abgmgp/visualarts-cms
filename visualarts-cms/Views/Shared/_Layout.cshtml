@@ -8,30 +8,50 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-toggleable-sm bg-light" style="height:90px; background-color:white !important;">
+    <nav class="navbar navbar-expand-lg navbar-toggleable-sm bg-light sticky-top shadow" style="height:90px; background-color:white !important;">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("INTRODUCTION TO VISUAL ARTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bolder" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="d-sm-inline-flex justify-content-between text-md-end">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="mx-3">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="mx-3">@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="mx-3">@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "btn btn-secondary" })</li>
+                <ul class="navbar-nav flex-grow-1 gap-3">
+                    <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="">@Html.ActionLink("About", "Index", "Home", new { area = "about" }, new { @class = "nav-link" })</li>
+                    <li class="">@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "btn btn-secondary" })</li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container body-content">
+        <br class="mt-1" />
         @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
+        <br class="mb-lg-3" />
     </div>
-
+    <div id="footer" class="d-flex w-100 flex-column justify-content-center align-content-center footer-bg text-white ">
+        <div class="mx-lg-5 mb-5 d-flex flex-row justify-content-center align-content-center" style="gap:30rem !important; margin-top:65px !important;">
+            <div class="d-flex flex-column">
+                <p class="fw-bold">Introduction to Visual Arts</p>
+                <a>Home</a>
+                <a>About</a>
+                <a>Contact Us</a>
+            </div>
+            <div class="d-flex flex-column">
+                <p class="fw-bold">Guides</p>
+                <a>Current Trends</a>
+                <a>Skills</a>
+                <a>Career Opportunities</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-content-center">
+            <hr style="width:85% !important" />
+        </div>
+        <div class="d-flex justify-content-center align-content-center mt-3">
+            <p>&copy; @DateTime.Now.Year - Introduction to Visual Arts Sector</p>
+        </div>
+        <br class="mb-lg-4"/>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
