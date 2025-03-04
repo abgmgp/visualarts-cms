@@ -35,8 +35,8 @@
                 <div class="d-sm-inline-flex justify-content-between text-md-end">
                     <ul class="navbar-nav flex-grow-1 gap-3">
                         <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="">@Html.ActionLink("About", "Index", "Home", new { area = "about" }, new { @class = "nav-link" })</li>
-                        <li class="">@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "btn btn-secondary" })</li>
+                        <li class=""><a href="#about" class="nav-link">About</a></li>
+                        <li class=""><a href="#contact" class="nav-link">Contact</a></li>
                     </ul>
                 </div>
             }
@@ -51,15 +51,16 @@
         <div class="mx-lg-5 mb-5 d-flex flex-row justify-content-center align-content-center" style="gap:30rem !important; margin-top:65px !important;">
             <div class="d-flex flex-column">
                 <p class="fw-bold">Introduction to Visual Arts</p>
-                <a>Home</a>
-                <a>About</a>
-                <a>Contact Us</a>
+                <a href="/Home/Index" class="text-white">Home</a>
+                <a href="/Home/Index#about" class="text-white">About</a>
+                <a href="/Home/Index#contact" class="text-white">Contact Us</a>
             </div>
             <div class="d-flex flex-column">
                 <p class="fw-bold">Guides</p>
-                <a>Current Trends</a>
-                <a>Skills</a>
-                <a>Career Opportunities</a>
+                <a href="/CurrentTrends/Index" class="text-white">Current Trends</a>
+                <a href="/Skills/Index" class="text-white">Skills</a>
+                <a href="/CareerOpportunities/Index" class="text-white">Career Opportunities</a>
+                <a href="/Tools/Index" class="text-white">Tools</a>
             </div>
         </div>
         <div class="d-flex justify-content-center align-content-center">
