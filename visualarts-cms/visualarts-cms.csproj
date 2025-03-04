@@ -116,7 +116,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CareerOpportunities.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\Tools.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Controllers\CurrentTrendsController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
