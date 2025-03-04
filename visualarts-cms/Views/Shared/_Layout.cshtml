@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,13 +19,27 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="d-sm-inline-flex justify-content-between text-md-end">
-                <ul class="navbar-nav flex-grow-1 gap-3">
-                    <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="">@Html.ActionLink("About", "Index", "Home", new { area = "about" }, new { @class = "nav-link" })</li>
-                    <li class="">@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "btn btn-secondary" })</li>
-                </ul>
-            </div>
+            @if (currentController == "CareerOpportunities" || currentController == "CurrentTrends" || currentController == "Tools" || currentController == "Skills")
+            {
+                <div class="d-sm-inline-flex justify-content-between text-md-end">
+                    <ul class="navbar-nav flex-grow-1 gap-3">
+                        <li class="">@Html.ActionLink("Current Trends", "Index", "CurrentTrends", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="">@Html.ActionLink("Skills", "Index", "Skills", new { area = "about" }, new { @class = "nav-link" })</li>
+                        <li class="">@Html.ActionLink("Career Opportunities", "Index", "CareerOpportunities", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="">@Html.ActionLink("Tools", "Index", "Tools", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="d-sm-inline-flex justify-content-between text-md-end">
+                    <ul class="navbar-nav flex-grow-1 gap-3">
+                        <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="">@Html.ActionLink("About", "Index", "Home", new { area = "about" }, new { @class = "nav-link" })</li>
+                        <li class="">@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "btn btn-secondary" })</li>
+                    </ul>
+                </div>
+            }
         </div>
     </nav>
     <div class="container body-content">
