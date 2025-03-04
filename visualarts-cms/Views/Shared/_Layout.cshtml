@@ -12,65 +12,72 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-toggleable-sm bg-light sticky-top shadow" style="height:90px; background-color:white !important;">
-        <div class="container">
-            @Html.ActionLink("INTRODUCTION TO VISUAL ARTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bolder" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            @if (currentController == "CareerOpportunities" || currentController == "CurrentTrends" || currentController == "Tools" || currentController == "Skills")
-            {
-                <div class="d-sm-inline-flex justify-content-between text-md-end">
-                    <ul class="navbar-nav flex-grow-1 gap-3">
-                        <li class="">@Html.ActionLink("Current Trends", "Index", "CurrentTrends", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="">@Html.ActionLink("Skills", "Index", "Skills", new { area = "about" }, new { @class = "nav-link" })</li>
-                        <li class="">@Html.ActionLink("Career Opportunities", "Index", "CareerOpportunities", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="">@Html.ActionLink("Tools", "Index", "Tools", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                </div>
-            }
-            else
-            {
-                <div class="d-sm-inline-flex justify-content-between text-md-end">
-                    <ul class="navbar-nav flex-grow-1 gap-3">
-                        <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class=""><a href="#about" class="nav-link">About</a></li>
-                        <li class=""><a href="#contact" class="btn btn-secondary">Contact Us</a></li>
-                    </ul>
-                </div>
-            }
+    @if (currentController != "Login")
+    {
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm bg-light sticky-top shadow" style="height:90px; background-color:white !important;">
+            <div class="container">
+                @Html.ActionLink("INTRODUCTION TO VISUAL ARTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bolder" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (currentController == "CareerOpportunities" || currentController == "CurrentTrends" || currentController == "Tools" || currentController == "Skills")
+                {
+                    <div class="d-sm-inline-flex justify-content-between text-md-end">
+                        <ul class="navbar-nav flex-grow-1 gap-3">
+                            <li class="">@Html.ActionLink("Current Trends", "Index", "CurrentTrends", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="">@Html.ActionLink("Skills", "Index", "Skills", new { area = "about" }, new { @class = "nav-link" })</li>
+                            <li class="">@Html.ActionLink("Career Opportunities", "Index", "CareerOpportunities", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="">@Html.ActionLink("Tools", "Index", "Tools", new { area = "" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-sm-inline-flex justify-content-between text-md-end">
+                        <ul class="navbar-nav flex-grow-1 gap-3">
+                            <li class="">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class=""><a href="#about" class="nav-link">About</a></li>
+                            <li class=""><a href="#contact" class="btn btn-secondary">Contact Us</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </nav>
+        <div class="container body-content">
+            <br class="mt-1" />
+            @RenderBody()
+            <br class="mb-lg-3" />
         </div>
-    </nav>
-    <div class="container body-content">
-        <br class="mt-1" />
+        <footer id="footer" class="d-flex w-100 flex-column justify-content-center align-content-center footer-bg text-white ">
+            <div class="mx-lg-5 mb-5 d-flex flex-row justify-content-center align-content-center" style="gap:30rem !important; margin-top:65px !important;">
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Introduction to Visual Arts</p>
+                    <a href="/Home/Index" class="text-white">Home</a>
+                    <a href="/Home/Index#about" class="text-white">About</a>
+                    <a href="/Home/Index#contact" class="text-white">Contact Us</a>
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Guides</p>
+                    <a href="/CurrentTrends/Index" class="text-white">Current Trends</a>
+                    <a href="/Skills/Index" class="text-white">Skills</a>
+                    <a href="/CareerOpportunities/Index" class="text-white">Career Opportunities</a>
+                    <a href="/Tools/Index" class="text-white">Tools</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-content-center">
+                <hr style="width:85% !important" />
+            </div>
+            <div class="d-flex justify-content-center align-content-center mt-3">
+                <p>&copy; @DateTime.Now.Year - Introduction to Visual Arts Sector</p>
+            </div>
+            <br class="mb-lg-4" />
+        </footer>
+    }
+    else
+    {
         @RenderBody()
-        <br class="mb-lg-3" />
-    </div>
-    <footer id="footer" class="d-flex w-100 flex-column justify-content-center align-content-center footer-bg text-white ">
-        <div class="mx-lg-5 mb-5 d-flex flex-row justify-content-center align-content-center" style="gap:30rem !important; margin-top:65px !important;">
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Introduction to Visual Arts</p>
-                <a href="/Home/Index" class="text-white">Home</a>
-                <a href="/Home/Index#about" class="text-white">About</a>
-                <a href="/Home/Index#contact" class="text-white">Contact Us</a>
-            </div>
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Guides</p>
-                <a href="/CurrentTrends/Index" class="text-white">Current Trends</a>
-                <a href="/Skills/Index" class="text-white">Skills</a>
-                <a href="/CareerOpportunities/Index" class="text-white">Career Opportunities</a>
-                <a href="/Tools/Index" class="text-white">Tools</a>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center align-content-center">
-            <hr style="width:85% !important" />
-        </div>
-        <div class="d-flex justify-content-center align-content-center mt-3">
-            <p>&copy; @DateTime.Now.Year - Introduction to Visual Arts Sector</p>
-        </div>
-        <br class="mb-lg-4"/>
-    </footer>
+    }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

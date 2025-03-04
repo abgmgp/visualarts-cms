@@ -116,6 +116,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CareerOpportunities.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Controllers\CurrentTrendsController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
@@ -207,6 +208,7 @@
     <Content Include="Views\CareerOpportunities\Index.cshtml" />
     <Content Include="Views\Tools\Index.cshtml" />
     <Content Include="Views\CurrentTrends\Read.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
