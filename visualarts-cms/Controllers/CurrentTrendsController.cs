@@ -13,6 +13,11 @@ namespace visualarts_cms.Controllers
             return View();
         }
 
+        public ActionResult Read()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
