@@ -12,9 +12,14 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.text-justify {
+    text-align: justify;
+}
+
+.text-outline {
+    text-shadow: -0.5px -0.5px 0 black, 0.5px -0.5px 0 black, -0.5px 0.5px 0 black, 0.5px 0.5px 0 black;
+}
+
+.footer-bg {
+    background-color: #36454F;
 }
