@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace visualarts_cms.Controllers
 {
-    public class CurrentTrendsController : Controller
+    public class CurrentTrendsController : BaseController
     {
         public ActionResult Index()
         {

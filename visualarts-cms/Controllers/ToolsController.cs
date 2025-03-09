@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace visualarts_cms.Controllers
 {
-    public class ToolsController : Controller
+    public class ToolsController : BaseController
     {
         public ActionResult Index()
         {

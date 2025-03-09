@@ -6,9 +6,19 @@ using System.Web.Mvc;
 
 namespace visualarts_cms.Controllers
 {
-    public class CareerOpportunitiesController : BaseController
+    public class AdminCurrentTrendsController : BaseController
     {
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Restore()
+        {
+            return View();
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
