@@ -1,18 +1,41 @@
-﻿@{ 
+﻿@{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
 }
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js" crossorigin="anonymous"></script>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Introduction to Visual Arts Sector</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @if (currentController.Contains("Admin"))
+    {
+        <title>@ViewBag.Title - Visual Arts Content Management System</title>
+    }
+    else
+    {
+        <title>@ViewBag.Title - Introduction to Visual Arts Sector</title>
+    }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
+
+    @*fonts*@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    @if (currentController != "Login")
+    @if (currentController != "Login" && !currentController.Contains("Admin"))
     {
         <nav class="navbar navbar-expand-lg navbar-toggleable-sm bg-light sticky-top shadow" style="height:90px; background-color:white !important;">
             <div class="container">
@@ -53,16 +76,16 @@
             <div class="mx-lg-5 mb-5 d-flex flex-row justify-content-center align-content-center" style="gap:30rem !important; margin-top:65px !important;">
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Introduction to Visual Arts</p>
-                    <a href="/Home/Index" class="text-white">Home</a>
-                    <a href="/Home/Index#about" class="text-white">About</a>
-                    <a href="/Home/Index#contact" class="text-white">Contact Us</a>
+                    <a href="/Home/Index" class="text-white" style="text-decoration: none;">Home</a>
+                    <a href="/Home/Index#about" class="text-white" style="text-decoration: none;">About</a>
+                    <a href="/Home/Index#contact" class="text-white" style="text-decoration: none;">Contact Us</a>
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Guides</p>
-                    <a href="/CurrentTrends/Index" class="text-white">Current Trends</a>
-                    <a href="/Skills/Index" class="text-white">Skills</a>
-                    <a href="/CareerOpportunities/Index" class="text-white">Career Opportunities</a>
-                    <a href="/Tools/Index" class="text-white">Tools</a>
+                    <a href="/CurrentTrends/Index" class="text-white" style="text-decoration: none;">Current Trends</a>
+                    <a href="/Skills/Index" class="text-white" style="text-decoration: none;">Skills</a>
+                    <a href="/CareerOpportunities/Index" class="text-white" style="text-decoration: none;">Career Opportunities</a>
+                    <a href="/Tools/Index" class="text-white" style="text-decoration: none;">Tools</a>
                 </div>
             </div>
             <div class="d-flex justify-content-center align-content-center">
@@ -74,12 +97,47 @@
             <br class="mb-lg-4" />
         </footer>
     }
+    else if (currentController.Contains("Admin"))
+    {
+        <div class="d-flex vh-100">
+            <nav id="sidebar" class="border border-top-0 border-bottom-0 border-start-0 bg-primary text-white p-2" style="width: 300px;">
+                <div class="m-4 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="150" height="150" viewBox="0 0 256 256" xml:space="preserve" style="">
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                    <path d="M 45 0 C 20.147 0 0 20.147 0 45 c 0 24.853 20.147 45 45 45 s 45 -20.147 45 -45 C 90 20.147 69.853 0 45 0 z M 45 22.007 c 8.899 0 16.14 7.241 16.14 16.14 c 0 8.9 -7.241 16.14 -16.14 16.14 c -8.9 0 -16.14 -7.24 -16.14 -16.14 C 28.86 29.248 36.1 22.007 45 22.007 z M 45 83.843 c -11.135 0 -21.123 -4.885 -27.957 -12.623 c 3.177 -5.75 8.144 -10.476 14.05 -13.341 c 2.009 -0.974 4.354 -0.958 6.435 0.041 c 2.343 1.126 4.857 1.696 7.473 1.696 c 2.615 0 5.13 -0.571 7.473 -1.696 c 2.083 -1 4.428 -1.015 6.435 -0.041 c 5.906 2.864 10.872 7.591 14.049 13.341 C 66.123 78.957 56.135 83.843 45 83.843 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    </g>
+                    </svg>
+                    <h3 class="my-4">Welcome</h3>
+                </div>
+                <br />
+                <div id="links" class="my-3">
+                    <div class="mx-2 my-4">
+                        <a href="/Admin/" class="text-white" style="text-decoration: none;"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a>
+                    </div>
+                    <div class="mx-2 my-4">
+                        <a href="/AdminCurrentTrends/" class="text-white" style="text-decoration: none;"><i class="bi bi-newspaper me-2"></i> Current Trends</a>
+                    </div>
+                    <div class="mx-2 my-4">
+                        <a href="/AdminInquiries/" class="text-white" style="text-decoration: none;"><i class="bi bi-person-raised-hand me-2"></i> Inquiries</a>
+                    </div>
+                </div>
+                <br class="my-3"/>
+                <div class="mx-2 my-4">
+                    <a href="/Home/" class="text-white" style="text-decoration: none;"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
+                </div>
+            </nav>
+            <div class="container-fluid m-4">
+                @RenderBody()
+            </div>
+        </div>
+    }
     else
     {
         @RenderBody()
     }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
