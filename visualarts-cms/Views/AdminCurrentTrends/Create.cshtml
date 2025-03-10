@@ -37,10 +37,10 @@
                     }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;">
     <section>
-        <div class="container pt-5 h-100">
-            <div class="row justify-content-center align-items-center h-200">
+        <div class="container pt-2">
+            <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
@@ -51,13 +51,33 @@
                                     <div class="col-md-6 mb-3 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseName">Title</label>
-                                            @Html.TextBox("Mame","", new { @class = "form-control required" })
+                                            @Html.TextBox("Mame", "", new { @class = "form-control required" })
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseCode">Content</label>
-                                            @Html.TextArea("Code","", new { @class = "form-control required" })
+                                            @Html.TextArea("Code", "", new { @class = "form-control required" })
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3 pb-2">
+                                        <div class="col-md-6">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="fileImage">Image Upload</label>
+                                                <input type="file" name="fileImage" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="fileAudio">Audio Upload</label>
+                                                <input type="file" name="fileAudio" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3 pb-2">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="courseName">YouTube Video Embed</label>
+                                            @Html.TextBox("fileVideo", "", new { @class = "form-control required" })
                                         </div>
                                     </div>
                                 </div>
