@@ -125,7 +125,7 @@
                 </div>
                 <br class="my-3"/>
                 <div class="mx-2 my-4">
-                    <a href="/Home/" class="text-white" style="text-decoration: none;"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
+                    <a href="#" id="logoutBtn" class="text-white" style="text-decoration: none;"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
                 </div>
             </nav>
             <div class="container-fluid m-4">
@@ -141,3 +141,16 @@
 </html>
 
 
+<script>
+
+    $("#logoutBtn").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: '/Login/Logout',
+            success: function (data) {
+                window.location = '@Url.Action("Index", "Login")';
+            },
+        });
+    });
+</script>
