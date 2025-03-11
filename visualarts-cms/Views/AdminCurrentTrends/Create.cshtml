@@ -1,4 +1,6 @@
-﻿@{
+﻿@model visualarts_cms.Models.Viewmodel.CurrentTrendViewModel
+
+@{
     ViewBag.Title = "Create Current Trend";
 }
 
@@ -37,7 +39,7 @@
                     }
     </style>
 </head>
-<body style="overflow: hidden;">
+<body>
     <section>
         <div class="container pt-2">
             <div class="row justify-content-center align-items-center">
@@ -45,39 +47,39 @@
                     <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create Current Trends Entry</h3>
-                            @using (Html.BeginForm("Create", "AdminCurrentTrends", FormMethod.Post))
+                            @using (Html.BeginForm("Create", "AdminCurrentTrends", FormMethod.Post, new {enctype = "multipart/form-data"}))
                             {
                                 <div class="column my-6">
                                     <div class="col-md-12 mb-3 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseName">Title</label>
-                                            @Html.TextBox("Mame", "", new { @class = "form-control required" })
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control required" })
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseCode">Content</label>
-                                            @Html.TextArea("Code", "", new { @class = "form-control required" })
+                                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control required" })
                                         </div>
                                     </div>
                                     <div class="row mb-3 pb-2">
                                         <div class="col-md-6">
                                             <div class="form-outline">
                                                 <label class="form-label" for="fileImage">Image File</label>
-                                                <input type="file" name="fileImage" class="form-control" />
+                                                <input type="file" name="ImageFile" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-outline">
                                                 <label class="form-label" for="fileAudio">Audio File (optional)</label>
-                                                <input type="file" name="fileAudio" class="form-control" />
+                                                <input type="file" name="AudioFile" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3 pb-4">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseName">YouTube Video URL (optional)</label>
-                                            @Html.TextBox("fileVideo", "", new { @class = "form-control required" })
+                                            @Html.TextBoxFor(m => m.EmbedUrl, new { @class = "form-control required" })
                                         </div>
                                     </div>
                                 </div>
