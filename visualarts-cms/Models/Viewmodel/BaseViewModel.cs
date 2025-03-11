@@ -9,5 +9,6 @@ namespace visualarts_cms.Models.Viewmodel
     {
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string CreatedDateStr { get; set; }
     }
 }

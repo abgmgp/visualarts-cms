@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IList<visualarts_cms.Models.Viewmodel.CurrentTrendViewModel>
+
+@{
     ViewBag.Title = "Current Trends Index";
 }
 
@@ -18,19 +20,32 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
+                    <th></th>
+                    <th style="display: none;"></th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th style="width: 50px;" class="no-sort"></th>
+                    <th style="width: 50px;" class="no-sort"></th>
+                    <th style="width: 50px;" class="no-sort"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td style="display: none;">@Html.DisplayFor(m => item.CurrentTrendId)</td>
+                        <td>@Html.DisplayFor(m => item.Title)</td>
+                        <td>@Html.DisplayFor(m => item.Content)</td>
+                        <td>@Html.DisplayFor(m => item.CreatedDateStr)</td>
+                        <td>@Html.DisplayFor(m => item.UpdatedDateStr)</td>
+                        <td style="width: 50px;"><a href="@Url.Action("View", "AdminCurrentTrends", new {id = item.CurrentTrendId})" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-richtext-fill"></i></a></td>
+                        <td style="width: 50px;"><a href="@Url.Action("Edit", "AdminCurrentTrends", new {id = item.CurrentTrendId})" class="btn btn-success" role="button"><i class="bi bi-pencil-square"></i></a></td>
+                        <td style="width: 50px;"><button class="btn btn-danger" role="button" id="deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -38,6 +53,29 @@
 
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable(
+            {
+                ordering: true,
+                columnDefs: [
+                    {
+                        "orderable": true,
+                        "targets": 1,
+                    },
+                    {
+                        orderable: false,
+                        targets: "no-sort"
+                    },
+                ],
+            }
+        );
+
+        dataTable.on('order.dt search.dt', function () {
+            let i = 1;
+            dataTable.cells(null, 0, { search: 'applied', order: 'applied' })
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        }).draw();
+
     });
 </script>
