@@ -51,51 +51,58 @@ namespace visualarts_cms.Controllers
         [HttpPost]
         public ActionResult Create(CurrentTrendViewModel viewModel)
         {
-            #region Check directories
-            if (!Directory.Exists(Server.MapPath("~/Content/Upload/Image")))
+            try
             {
-                Directory.CreateDirectory(Server.MapPath("~/Content/Upload/Image"));
-            }
+                #region Check directories
+                if (!Directory.Exists(Server.MapPath("~/Content/Upload/Image")))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Upload/Image"));
+                }
 
-            if (!Directory.Exists(Server.MapPath("~/Content/Upload/Audio")))
+                if (!Directory.Exists(Server.MapPath("~/Content/Upload/Audio")))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Upload/Audio"));
+                }
+                #endregion
+
+                #region map full image path
+
+
+                if (viewModel.ImageFile != null)
+                {
+                    var fullPathImage = Server.MapPath("~/Content/Upload/Image" + viewModel.ImageFile.FileName);
+                    viewModel.ImageFile.SaveAs(fullPathImage);
+
+                }
+                if (viewModel.AudioFile != null)
+                {
+                    var fullPathAudio = Server.MapPath("~/Content/Upload/Audio" + viewModel.AudioFile.FileName);
+                    viewModel.AudioFile.SaveAs(fullPathAudio);
+                }
+                #endregion
+
+                //write to db
+                conn.Open();
+
+                SqlCommand insertQuery = new SqlCommand("INSERT INTO CurrentTrends " +
+                    "(Title, Content, EmbedUrl, AudioPath, ImagePath, IsActive, DateCreated) " +
+                    "VALUES (@Title, @Content, @EmbedUrl, @AudioPath, @ImagePath, @IsActive, @DateCreated)", conn);
+                insertQuery.Parameters.Add(new SqlParameter("@Title", viewModel.Title));
+                insertQuery.Parameters.Add(new SqlParameter("@Content", viewModel.Content));
+                insertQuery.Parameters.Add(new SqlParameter("@EmbedUrl", viewModel.EmbedUrl ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile.FileName ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile.FileName ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
+                insertQuery.Parameters.Add(new SqlParameter("@DateCreated", DateTime.Now));
+
+                insertQuery.ExecuteNonQuery();
+
+                return RedirectToAction("Index");
+            }
+            catch
             {
-                Directory.CreateDirectory(Server.MapPath("~/Content/Upload/Audio"));
+                return RedirectToAction("Create");
             }
-            #endregion
-
-            #region map full image path
-
-            string fullPathImage = null;
-            string fullPathAudio = null;
-
-            if(viewModel.ImageFile != null)
-            {
-                fullPathImage = Server.MapPath("~/Content/Upload/Image" + viewModel.ImageFile.FileName);
-
-            }
-            if (viewModel.AudioFile != null)
-            {
-                fullPathAudio = Server.MapPath("~/Content/Upload/Audio" + viewModel.AudioFile.FileName);
-            }
-            #endregion
-
-            //write to db
-            conn.Open();
-
-            SqlCommand insertQuery = new SqlCommand("INSERT INTO CurrentTrends " +
-                "(Title, Content, EmbedUrl, AudioPath, ImagePath, IsActive, DateCreated) " +
-                "VALUES (@Title, @Content, @EmbedUrl, @AudioPath, @ImagePath, @IsActive, @DateCreated)", conn);
-            insertQuery.Parameters.Add(new SqlParameter("@Title", viewModel.Title));
-            insertQuery.Parameters.Add(new SqlParameter("@Content", viewModel.Content));
-            insertQuery.Parameters.Add(new SqlParameter("@EmbedUrl", viewModel.EmbedUrl));
-            insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile.FileName));
-            insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile.FileName));
-            insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
-            insertQuery.Parameters.Add(new SqlParameter("@DateCreated", DateTime.Now));
-
-            insertQuery.ExecuteNonQuery();
-
-            return RedirectToAction("Index");
         }
     }
 }
