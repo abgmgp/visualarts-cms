@@ -220,6 +220,8 @@
     <Content Include="Views\AdminInquiries\History.cshtml" />
     <Content Include="Views\AdminCurrentTrends\Restore.cshtml" />
     <Content Include="Views\AdminCurrentTrends\Create.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\Edit.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
