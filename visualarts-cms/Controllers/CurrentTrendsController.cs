@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using visualarts_cms.Models.Viewmodel;
 
 namespace visualarts_cms.Controllers
 {
@@ -10,26 +12,50 @@ namespace visualarts_cms.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            conn.Open();
+
+            var viewModel = new List<CurrentTrendViewModel>();
+            SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE IsActive = 1", conn);
+            SqlDataReader reader = getQuery.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var ct = new CurrentTrendViewModel
+                {
+                    CurrentTrendId = Convert.ToInt32(reader["CurrentTrendId"]),
+                    Title = reader["Title"].ToString(),
+                    ImagePath = reader["ImagePath"].ToString(),
+                    IsActive = Convert.ToBoolean(reader["IsActive"]),
+                };
+
+                viewModel.Add(ct);
+            }
+
+            return View(viewModel);
         }
 
-        public ActionResult Read()
+        [HttpGet]
+        public ActionResult Read(int id)
         {
-            return View();
-        }
+            conn.Open();
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            var viewModel = new CurrentTrendViewModel();
+            SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE CurrentTrendId = " + id, conn);
+            SqlDataReader reader = getQuery.ExecuteReader();
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            while (reader.Read())
+            {
+                viewModel = new CurrentTrendViewModel
+                {
+                    CurrentTrendId = Convert.ToInt32(reader["CurrentTrendId"]),
+                    Title = reader["Title"].ToString(),
+                    Content = reader["Content"].ToString(),
+                    ImagePath = reader["ImagePath"].ToString(),
+                    AudioPath = reader["AudioPath"].ToString(),
+                    EmbedUrl = reader["EmbedUrl"].ToString(),
+                };
+            }
+            return View(viewModel);
         }
     }
 }
