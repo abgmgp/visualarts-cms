@@ -49,6 +49,7 @@
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Current Trends Entry</h3>
                             @using (Html.BeginForm("Edit", "AdminCurrentTrends", FormMethod.Post, new {enctype = "multipart/form-data"}))
                             {
+                                @Html.HiddenFor(x=>x.CurrentTrendId)
                                 <div class="column my-6">
                                     <div class="col-md-12 mb-3 pb-2">
                                         <div class="form-outline">

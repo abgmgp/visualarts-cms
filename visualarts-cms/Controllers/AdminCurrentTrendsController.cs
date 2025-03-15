@@ -158,6 +158,8 @@ namespace visualarts_cms.Controllers
         {
             try
             {
+                conn.Open();
+
                 #region Check directories
                 if (!Directory.Exists(Server.MapPath("~/Content/Upload/Image")))
                 {
@@ -170,35 +172,66 @@ namespace visualarts_cms.Controllers
                 }
                 #endregion
 
+                #region check if image/audio path same as current db record
+
+                var currentDbRecord = new CurrentTrendViewModel();
+                SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE CurrentTrendId = " + viewModel.CurrentTrendId, conn);
+                SqlDataReader reader = getQuery.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    currentDbRecord = new CurrentTrendViewModel
+                    {
+                        CurrentTrendId = Convert.ToInt32(reader["CurrentTrendId"]),
+                        Title = reader["Title"].ToString(),
+                        Content = reader["Content"].ToString(),
+                        ImagePath = reader["ImagePath"].ToString(),
+                        AudioPath = reader["AudioPath"].ToString(),
+                        EmbedUrl = reader["EmbedUrl"].ToString(),
+                    };
+                }
+                #endregion
+
                 #region map full image path
-
-
                 if (viewModel.ImageFile != null)
                 {
+                    if (viewModel.ImageFile.FileName != currentDbRecord.ImagePath)
+                    {
+                        var fullPathImageOld = Server.MapPath("~/Content/Upload/Image/" + currentDbRecord.ImagePath);
+                        if (System.IO.File.Exists(fullPathImageOld))
+                        {
+                            System.IO.File.Delete(fullPathImageOld);
+                        }
+                    }
                     var fullPathImage = Server.MapPath("~/Content/Upload/Image/" + viewModel.ImageFile.FileName);
                     viewModel.ImageFile.SaveAs(fullPathImage);
 
                 }
                 if (viewModel.AudioFile != null)
                 {
+                    if (viewModel.AudioFile.FileName != currentDbRecord.ImagePath)
+                    {
+                        var fullPathAudioOld = Server.MapPath("~/Content/Upload/Audio/" + currentDbRecord.AudioPath);
+                        if (System.IO.File.Exists(fullPathAudioOld))
+                        {
+                            System.IO.File.Delete(fullPathAudioOld);
+                        }
+                    }
                     var fullPathAudio = Server.MapPath("~/Content/Upload/Audio/" + viewModel.AudioFile.FileName);
                     viewModel.AudioFile.SaveAs(fullPathAudio);
                 }
                 #endregion
 
-                //write to db
-                conn.Open();
-
-                SqlCommand insertQuery = new SqlCommand("INSERT INTO CurrentTrends " +
-                    "(Title, Content, EmbedUrl, AudioPath, ImagePath, IsActive, DateCreated) " +
-                    "VALUES (@Title, @Content, @EmbedUrl, @AudioPath, @ImagePath, @IsActive, @DateCreated)", conn);
+                SqlCommand insertQuery = new SqlCommand("UPDATE CurrentTrends " +
+                    "SET Title = @Title, Content = @Content, EmbedUrl = @EmbedUrl, AudioPath = @AudioPath, ImagePath = @ImagePath, UpdatedDate = @DateUpdated " +
+                    "WHERE CurrentTrendId = @CurrentTrendId", conn);
                 insertQuery.Parameters.Add(new SqlParameter("@Title", viewModel.Title));
                 insertQuery.Parameters.Add(new SqlParameter("@Content", viewModel.Content));
                 insertQuery.Parameters.Add(new SqlParameter("@EmbedUrl", viewModel.EmbedUrl ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile.FileName ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile.FileName ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
-                insertQuery.Parameters.Add(new SqlParameter("@DateCreated", DateTime.Now));
+                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile != null ? viewModel.AudioFile.FileName : currentDbRecord.AudioPath));
+                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile != null ? viewModel.ImageFile.FileName : currentDbRecord.ImagePath));
+                insertQuery.Parameters.Add(new SqlParameter("@DateUpdated", DateTime.Now));
+                insertQuery.Parameters.Add(new SqlParameter("@CurrentTrendId", viewModel.CurrentTrendId));
 
                 insertQuery.ExecuteNonQuery();
 
@@ -206,7 +239,7 @@ namespace visualarts_cms.Controllers
             }
             catch
             {
-                return RedirectToAction("Create");
+                return RedirectToAction("Edit");
             }
         }
         #endregion edit
