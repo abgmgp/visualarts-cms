@@ -220,6 +220,11 @@
     <Content Include="Views\AdminInquiries\History.cshtml" />
     <Content Include="Views\AdminCurrentTrends\Restore.cshtml" />
     <Content Include="Views\AdminCurrentTrends\Create.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\Edit.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\View.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\ViewRestore.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\_deleteModal.cshtml" />
+    <Content Include="Views\AdminCurrentTrends\_restoreModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

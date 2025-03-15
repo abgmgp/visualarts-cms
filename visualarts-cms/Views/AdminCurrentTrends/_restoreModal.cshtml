@@ -1,0 +1,21 @@
+﻿﻿@model visualarts_cms.Models.Viewmodel.CurrentTrendViewModel
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title" id="deleteLabel">Restore Entry</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <p>Would you like to restore this entry?</p>
+    </div>
+    <div class="modal-footer">
+        @using (Html.BeginForm("Restore", "AdminCurrentTrends", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.CurrentTrendId)
+            <button class="btn btn-success" role="button"><i class="bi bi-trash3"></i> Restore</button>
+        }
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-arrow-counterclockwise"></i> Close</button>
+    </div>
+
+</div>
