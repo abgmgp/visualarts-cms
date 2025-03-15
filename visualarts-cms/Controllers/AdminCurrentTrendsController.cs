@@ -269,6 +269,31 @@ namespace visualarts_cms.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        public ActionResult ViewRestore(int id)
+        {
+            conn.Open();
+
+            var viewModel = new CurrentTrendViewModel();
+            SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE CurrentTrendId = " + id, conn);
+            SqlDataReader reader = getQuery.ExecuteReader();
+
+            while (reader.Read())
+            {
+                viewModel = new CurrentTrendViewModel
+                {
+                    CurrentTrendId = Convert.ToInt32(reader["CurrentTrendId"]),
+                    Title = reader["Title"].ToString(),
+                    Content = reader["Content"].ToString(),
+                    ImagePath = reader["ImagePath"].ToString(),
+                    AudioPath = reader["AudioPath"].ToString(),
+                    EmbedUrl = reader["EmbedUrl"].ToString(),
+                };
+            }
+
+            return View(viewModel);
+        }
         #endregion view
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IList<visualarts_cms.Models.Viewmodel.CurrentTrendViewModel>
+
+@{
     ViewBag.Title = "Restore Current Trends";
 }
 
@@ -9,25 +11,36 @@
         </div>
         <div class="d-flex justify-content-between my-4">
             <div>
-                <a href="@Url.Action("Index", "AdminCurrentTrends")" class="btn btn-warning" role="button" id="restoreBtn"><i class ="bi bi-box-arrow-in-left"></i> Back to Current Trends</a>
+                <a href="@Url.Action("Index", "AdminCurrentTrends")" class="btn btn-warning" role="button" id="restoreBtn"><i class="bi bi-box-arrow-in-left"></i> Go Back</a>
             </div>
         </div>
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
+                    <th></th>
+                    <th style="display: none;"></th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th style="width: 50px;" class="no-sort"></th>
+                    <th style="width: 50px;" class="no-sort"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td style="display: none;">@Html.DisplayFor(m => item.CurrentTrendId)</td>
+                        <td>@Html.DisplayFor(m => item.Title)</td>
+                        <td>@Html.DisplayFor(m => item.Content)</td>
+                        <td>@Html.DisplayFor(m => item.CreatedDateStr)</td>
+                        <td>@Html.DisplayFor(m => item.UpdatedDateStr)</td>
+                        <td style="width: 50px;"><a href="@Url.Action("ViewRestore", "AdminCurrentTrends", new {id = item.CurrentTrendId})" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-richtext-fill"></i></a></td>
+                        <td style="width: 50px;"><button class="btn btn-success" role="button" id="restoreBtn" data-bs-toggle="modal" data-bs-target="#restoreModal"><i class="bi bi-arrow-counterclockwise"></i></button></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
