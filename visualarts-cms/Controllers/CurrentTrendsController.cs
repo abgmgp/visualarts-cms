@@ -55,6 +55,8 @@ namespace visualarts_cms.Controllers
                     EmbedUrl = reader["EmbedUrl"].ToString(),
                 };
             }
+
+            viewModel.EmbedUrl = viewModel.EmbedUrl.Replace("watch?v=", "embed/");
             return View(viewModel);
         }
     }
