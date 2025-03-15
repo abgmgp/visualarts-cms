@@ -48,12 +48,19 @@
                 }
             </tbody>
         </table>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable(
+        var dataTable = $('#myTable').DataTable(
             {
                 ordering: true,
                 columnDefs: [
@@ -76,6 +83,19 @@
                     this.data(i++);
                 });
         }).draw();
+
+        $("#myTable").on("click", ".btn-danger", function () {
+            var row = $(this).closest("tr");
+            var viewData = row.find("td:eq(1)").text();
+            $.ajax({
+                url: '@Url.Action("ShowModalDelete", "AdminCurrentTrends")',
+                data: { id: viewData },
+                type: 'GET',
+                success: function (data) {
+                    $('#deleteModal .modal-content').html(data);
+                }
+            });
+        });
 
     });
 </script>

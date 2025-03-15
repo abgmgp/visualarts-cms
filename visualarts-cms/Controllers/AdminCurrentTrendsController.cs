@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -295,5 +296,73 @@ namespace visualarts_cms.Controllers
             return View(viewModel);
         }
         #endregion view
+
+        #region delete 
+        [HttpGet]
+        public ActionResult ShowModalDelete(int id)
+        {
+            var viewModel = new CurrentTrendViewModel();
+
+            conn.Open();
+            SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE CurrentTrendId = @CurrentTrendId", conn);
+            getQuery.Parameters.Add(new SqlParameter("CurrentTrendId", id));
+            SqlDataReader courseReader = getQuery.ExecuteReader();
+
+            while (courseReader.Read())
+            {
+                viewModel.CurrentTrendId = Convert.ToInt32(courseReader["CurrentTrendId"]);
+            }
+
+            return PartialView("_deleteModal", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(CurrentTrendViewModel viewModel)
+        {
+            conn.Open();
+
+            SqlCommand updateQuery = new SqlCommand("UPDATE CurrentTrends " +
+                "SET IsActive = 0 WHERE CurrentTrendId = @CurrentTrendId", conn);
+            updateQuery.Parameters.Add(new SqlParameter("CurrentTrendId", viewModel.CurrentTrendId));
+
+            updateQuery.ExecuteNonQuery();
+
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region restore
+        [HttpGet]
+        public ActionResult ShowModalRestore(int id)
+        {
+            var viewModel = new CurrentTrendViewModel();
+
+            conn.Open();
+            SqlCommand getQuery = new SqlCommand("SELECT * FROM CurrentTrends WHERE CurrentTrendId = @CurrentTrendId", conn);
+            getQuery.Parameters.Add(new SqlParameter("CurrentTrendId", id));
+            SqlDataReader courseReader = getQuery.ExecuteReader();
+
+            while (courseReader.Read())
+            {
+                viewModel.CurrentTrendId = Convert.ToInt32(courseReader["CurrentTrendId"]);
+            }
+
+            return PartialView("_restoreModal", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Restore(CurrentTrendViewModel viewModel)
+        {
+            conn.Open();
+
+            SqlCommand updateQuery = new SqlCommand("UPDATE CurrentTrends " +
+                "SET IsActive = 1 WHERE CurrentTrendId = @CurrentTrendId", conn);
+            updateQuery.Parameters.Add(new SqlParameter("CurrentTrendId", viewModel.CurrentTrendId));
+
+            updateQuery.ExecuteNonQuery();
+
+            return RedirectToAction("Restore");
+        }
+        #endregion
     }
 }

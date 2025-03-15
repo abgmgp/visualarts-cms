@@ -43,11 +43,53 @@
                 }
             </tbody>
         </table>
+
+        <div class="modal fade" id="restoreModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        var dataTable = $('#myTable').DataTable(
+            {
+                ordering: true,
+                columnDefs: [
+                    {
+                        "orderable": true,
+                        "targets": 1,
+                    },
+                    {
+                        orderable: false,
+                        targets: "no-sort"
+                    },
+                ],
+            }
+        );
+
+        dataTable.on('order.dt search.dt', function () {
+            let i = 1;
+            dataTable.cells(null, 0, { search: 'applied', order: 'applied' })
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        }).draw();
+
+        $("#myTable").on("click", ".btn-success", function () {
+            var row = $(this).closest("tr");
+            var viewData = row.find("td:eq(1)").text();
+            $.ajax({
+                url: '@Url.Action("ShowModalRestore", "AdminCurrentTrends")',
+                data: { id: viewData },
+                type: 'GET',
+                success: function (data) {
+                    $('#restoreModal .modal-content').html(data);
+                }
+            });
+        });
     });
 </script>
