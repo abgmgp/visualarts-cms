@@ -39,8 +39,8 @@
         @if (!String.IsNullOrEmpty(Model.AudioPath) && Model.AudioPath != "")
         {
             <div class="my-4">
-                <audio controls src="/shared-assets/audio/t-rex-roar.mp3"></audio>
-                <a href="/shared-assets/audio/t-rex-roar.mp3"></a>
+                <audio controls src="~/Content/Upload/Audio/@Model.AudioPath"></audio>
+                <a href="~/Content/Upload/Audio/@Model.AudioPath"></a>
             </div>
         }
             <div class="my-4">
