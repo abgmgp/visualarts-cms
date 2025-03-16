@@ -65,9 +65,9 @@
                 <div class="card d-flex flex-column align-items-center justify-content-center shadow" style="height:450px;">
                     @using (Html.BeginForm("SubmitInquiry", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "w-100 text-center" }))
                     {
-                        @Html.TextBoxFor(m => m.Name, new { @class = "my-3 w-75 form-control required mx-auto", @placeholder = "Name" })
-                        @Html.TextBoxFor(m => m.Email, new { @class = "my-3 w-75 form-control required mx-auto", @placeholder = "E-mail Address" })
-                        @Html.TextAreaFor(m => m.Message, new { @class = "my-3 w-75 h-25 form-control required mx-auto", @placeholder = "What do you want to say?" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "my-3 w-75 form-control required mx-auto", @placeholder = "Name", @required = "required" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "my-3 w-75 form-control required mx-auto", @placeholder = "E-mail Address", @required = "required" })
+                        @Html.TextAreaFor(m => m.Message, new { @class = "my-3 w-75 h-25 form-control required mx-auto", @placeholder = "What do you want to say?", @required = "required" })
                         <button class="btn btn-secondary w-75 mt-5 mb-2">Message Us</button>
                     }
                 </div>

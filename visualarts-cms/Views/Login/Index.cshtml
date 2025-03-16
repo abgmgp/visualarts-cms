@@ -9,9 +9,9 @@
         <h3 class="fw-bold mb-4">Login</h3>
         @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post, new { @class = "w-100 text-center" }))
         {
-            @Html.TextBoxFor(m => Model.Username, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Username" })
-            @Html.PasswordFor(m => Model.Password, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Password" })
-            @Html.PasswordFor(m => Model.ConfirmPassword, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Confirm Password" })
+            @Html.TextBoxFor(m => Model.Username, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Username", @required = "required" })
+            @Html.PasswordFor(m => Model.Password, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Password", @required = "required" })
+            @Html.PasswordFor(m => Model.ConfirmPassword, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Confirm Password", @required = "required" })
             <button class="btn btn-primary w-75 mt-5 mb-2">Login</button>
         }
     </div>
