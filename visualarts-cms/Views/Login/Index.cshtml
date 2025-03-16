@@ -12,7 +12,11 @@
             @Html.TextBoxFor(m => Model.Username, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Username", @required = "required" })
             @Html.PasswordFor(m => Model.Password, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Password", @required = "required" })
             @Html.PasswordFor(m => Model.ConfirmPassword, new { @class = "form-control required my-3 w-75 mx-auto", @placeholder = "Confirm Password", @required = "required" })
-            <button class="btn btn-primary w-75 mt-5 mb-2">Login</button>
+            if (!String.IsNullOrEmpty(ViewBag.Message))
+            {
+                <div class="mt-2 text-danger">@ViewBag.Message</div>
+            }
+            <button class="btn btn-primary w-75 mt-4 mb-2">Login</button>
         }
     </div>
     <a class="btn btn-light shadow rounded-circle mt-4" href="/Home/Index">
