@@ -1,0 +1,20 @@
+﻿﻿@model visualarts_cms.Models.Viewmodel.InquiryViewModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title" id="deleteLabel">Archive Entry</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <p>Would you like to archive this inquiry?</p>
+    </div>
+    <div class="modal-footer">
+        @using (Html.BeginForm("Delete", "AdminInquiries", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.InquiryId)
+            <button class="btn btn-danger" role="button"><i class="bi bi-trash3"></i> Archive</button>
+        }
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Close</button>
+    </div>
+
+</div>

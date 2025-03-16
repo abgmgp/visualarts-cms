@@ -1,0 +1,90 @@
+﻿@model visualarts_cms.Models.Viewmodel.InquiryViewModel
+
+@{
+    ViewBag.Title = "View Inquiry";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+                /*   body {
+                    background-color: #f8f9fa;
+                }
+        */
+                .gradient-custom {
+                    background: linear-gradient(to right, #ffffff, #e0e0e0);
+                }
+
+                .card-registration {
+                    background-color: #f8f9fa;
+                    box-shadow: 0 0 10px black;
+                }
+
+                label.form-label {
+                    color: #495057;
+                }
+
+                .btn-primary {
+                    background-color: #007bff;
+                    border-color: #007bff;
+                }
+
+                    .btn-primary:hover {
+                        background-color: #0056b3;
+                        border-color: #0056b3;
+                    }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container pt-2">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">View Inquiry</h3>
+                            @using (Html.BeginForm("View", "AdminCurrentTrends", FormMethod.Post, new {enctype = "multipart/form-data"}))
+                            {
+                                <div class="column my-6">
+                                    <div class="col-md-12 mb-3 pb-2">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="courseName">Name</label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control required" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3 pb-2">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="courseName">E-mail Address</label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control required" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3 pb-2">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="courseCode">Message</label>
+                                            @Html.TextAreaFor(m => m.Message, new { @class = "form-control required" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-2 d-flex justify-content-end">
+                                    <div>
+                                        <a href="@Url.Action("Index", "AdminInquiries")" class="btn btn-warning" role="button" id="backBtn"><i class="bi bi-arrow-left-circle"></i> Go Back</a>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
+
