@@ -47,9 +47,9 @@
                     <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Current Trends Entry</h3>
-                            @using (Html.BeginForm("Edit", "AdminCurrentTrends", FormMethod.Post, new {enctype = "multipart/form-data"}))
+                            @using (Html.BeginForm("Edit", "AdminCurrentTrends", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                                @Html.HiddenFor(x=>x.CurrentTrendId)
+                                @Html.HiddenFor(x => x.CurrentTrendId)
                                 <div class="column my-6">
                                     <div class="col-md-12 mb-3 pb-2">
                                         <div class="form-outline">
@@ -67,7 +67,7 @@
                                         <div class="col-md-6">
                                             <div class="form-outline mb-3">
                                                 <label class="mb-2">Current Image File:</label>
-                                                <input type="text" name="ImagePath" value="@Model.ImagePath " readonly class="form-control"/>
+                                                <input type="text" name="ImagePath" value="@Model.ImagePath " readonly class="form-control" />
                                             </div>
                                             <div class="form-outline">
                                                 <label class="form-label" for="fileImage">Image File</label>
@@ -77,7 +77,7 @@
                                         <div class="col-md-6">
                                             <div class="form-outline mb-3">
                                                 <label class="mb-2">Current Audio File:</label>
-                                                <input type="text" name="ImagePath" value="@Model.AudioPath " readonly class="form-control"/>
+                                                <input type="text" name="ImagePath" value="@Model.AudioPath " readonly class="form-control" />
                                             </div>
                                             <div class="form-outline">
                                                 <label class="form-label" for="fileAudio">Audio File</label>
@@ -92,6 +92,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                if (!String.IsNullOrEmpty(ViewBag.Message))
+                                {
+                                    <div class="mt-2 mb-4 text-danger">@ViewBag.Message</div>
+                                }
 
                                 <div class="mt-2 d-flex justify-content-between">
                                     <div>

@@ -89,15 +89,27 @@ namespace visualarts_cms.Controllers
 
                 #region map full image path
 
+                string[] imageFormat = {"jpg", "jpeg", "png", "gif"};
+                var audioFormat = "mp3";
 
                 if (viewModel.ImageFile != null)
                 {
+                    if(!imageFormat.Any(x => x.Contains(viewModel.ImageFile.FileName)))
+                    {
+                        ViewBag.Message = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        return RedirectToAction("Create");
+                    }
                     var fullPathImage = Server.MapPath("~/Content/Upload/Image/" + viewModel.ImageFile.FileName);
                     viewModel.ImageFile.SaveAs(fullPathImage);
 
                 }
                 if (viewModel.AudioFile != null)
                 {
+                    if (!viewModel.ImageFile.FileName.Contains(audioFormat))
+                    {
+                        ViewBag.Message = "Incorrect audio format. Only mp3 files are allowed.";
+                        return RedirectToAction("Create");
+                    }
                     var fullPathAudio = Server.MapPath("~/Content/Upload/Audio/" + viewModel.AudioFile.FileName);
                     viewModel.AudioFile.SaveAs(fullPathAudio);
                 }
@@ -119,10 +131,12 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
+                ViewBag.Message = "Saved successfully!";
                 return RedirectToAction("Index");
             }
             catch
             {
+                ViewBag.Message = "Error when saving. Please try again later.";
                 return RedirectToAction("Create");
             }
         }
@@ -194,8 +208,17 @@ namespace visualarts_cms.Controllers
                 #endregion
 
                 #region map full image path
+
+                string[] imageFormat = { "jpg", "jpeg", "png", "gif" };
+                var audioFormat = "mp3";
+
                 if (viewModel.ImageFile != null)
                 {
+                    if (!imageFormat.Any(x => x.Contains(viewModel.ImageFile.FileName)))
+                    {
+                        ViewBag.Message = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        return RedirectToAction("Create");
+                    }
                     if (viewModel.ImageFile.FileName != currentDbRecord.ImagePath)
                     {
                         var fullPathImageOld = Server.MapPath("~/Content/Upload/Image/" + currentDbRecord.ImagePath);
@@ -210,6 +233,11 @@ namespace visualarts_cms.Controllers
                 }
                 if (viewModel.AudioFile != null)
                 {
+                    if (!viewModel.ImageFile.FileName.Contains(audioFormat))
+                    {
+                        ViewBag.Message = "Incorrect audio format. Only mp3 files are allowed.";
+                        return RedirectToAction("Create");
+                    }
                     if (viewModel.AudioFile.FileName != currentDbRecord.ImagePath)
                     {
                         var fullPathAudioOld = Server.MapPath("~/Content/Upload/Audio/" + currentDbRecord.AudioPath);
