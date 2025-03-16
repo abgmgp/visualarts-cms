@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<visualarts_cms.Models.Viewmodel.InquiryViewModel>
+
+@{
     ViewBag.Title = "Inquiries Index";
 }
 
@@ -15,26 +17,76 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
+                    <th></th>
+                    <th style="display: none;"></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date of Inquiry</th>
+                    <th style="width: 50px;" class="no-sort"></th>
+                    <th style="width: 50px;" class="no-sort"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td style="display: none;">@Html.DisplayFor(m => item.InquiryId)</td>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+                        <td>@Html.DisplayFor(m => item.Email)</td>
+                        <td>@Html.DisplayFor(m => item.CreatedDateStr)</td>
+                        <td style="width: 50px;"><a href="@Url.Action("View", "AdminInquiries", new {id = item.InquiryId})" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-richtext-fill"></i></a></td>
+                        <td style="width: 50px;"><button class="btn btn-danger" role="button" id="deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button></td>
+                    </tr>
+                }
             </tbody>
         </table>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        var dataTable = $('#myTable').DataTable(
+        {
+            ordering: true,
+            columnDefs: [
+                {
+                    "orderable": true,
+                    "targets": 1,
+                },
+                {
+                    orderable: false,
+                    targets: "no-sort"
+                },
+            ],
+        });
+
+        dataTable.on('order.dt search.dt', function () {
+            let i = 1;
+            dataTable.cells(null, 0, { search: 'applied', order: 'applied' })
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        }).draw();
+
+        $("#myTable").on("click", ".btn-danger", function () {
+            var row = $(this).closest("tr");
+            var viewData = row.find("td:eq(1)").text();
+            $.ajax({
+                url: '@Url.Action("ShowModalDelete", "AdminInquiries")',
+                data: { id: viewData },
+                type: 'GET',
+                success: function (data) {
+                    $('#deleteModal .modal-content').html(data);
+                }
+            });
+        });
     });
 </script>

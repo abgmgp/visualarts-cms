@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using visualarts_cms.Models.Viewmodel;
 
 namespace visualarts_cms.Controllers
 {
@@ -10,21 +13,34 @@ namespace visualarts_cms.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var viewmodel = new InquiryViewModel();
+            return View(viewmodel);
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult SubmitInquiry(InquiryViewModel viewModel)
         {
-            ViewBag.Message = "Your application description page.";
+            try
+            {
+                conn.Open();
 
-            return View();
-        }
+                SqlCommand insertQuery = new SqlCommand("INSERT INTO Inquiries " +
+                    "(Name, Email, Message, IsActive, CreatedDate) " +
+                    "VALUES (@Name, @Email, @Message, @IsActive, @CreatedDate)", conn);
+                insertQuery.Parameters.Add(new SqlParameter("@Name", viewModel.Name));
+                insertQuery.Parameters.Add(new SqlParameter("@Email", viewModel.Email));
+                insertQuery.Parameters.Add(new SqlParameter("@Message", viewModel.Message ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
+                insertQuery.Parameters.Add(new SqlParameter("@CreatedDate", DateTime.Now));
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+                insertQuery.ExecuteNonQuery();
 
-            return View();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }

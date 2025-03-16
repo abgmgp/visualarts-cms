@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<visualarts_cms.Models.Viewmodel.InquiryViewModel>
+
+@{
     ViewBag.Title = "Inquiry History";
 }
 
@@ -15,19 +17,26 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
+                    <th></th>
+                    <th style="display: none;"></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date of Inquiry</th>
+                    <th style="width: 50px;" class="no-sort"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td style="display: none;">@Html.DisplayFor(m => item.InquiryId)</td>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+                        <td>@Html.DisplayFor(m => item.Email)</td>
+                        <td>@Html.DisplayFor(m => item.CreatedDateStr)</td>
+                        <td style="width: 50px;"><a href="@Url.Action("ViewHistory", "AdminInquiries", new {id = item.InquiryId})" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-richtext-fill"></i></a></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
