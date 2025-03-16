@@ -112,8 +112,8 @@ namespace visualarts_cms.Controllers
                 insertQuery.Parameters.Add(new SqlParameter("@Title", viewModel.Title));
                 insertQuery.Parameters.Add(new SqlParameter("@Content", viewModel.Content));
                 insertQuery.Parameters.Add(new SqlParameter("@EmbedUrl", viewModel.EmbedUrl ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile.FileName ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile.FileName ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile != null ? viewModel.AudioFile.FileName : ""));
+                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile != null ? viewModel.Image.FileName : ""));
                 insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
                 insertQuery.Parameters.Add(new SqlParameter("@DateCreated", DateTime.Now));
 
