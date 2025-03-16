@@ -127,6 +127,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Viewmodel\DashboardViewModel.cs" />
     <Compile Include="Models\Viewmodel\InquiryViewModel.cs" />
     <Compile Include="Models\Viewmodel\CurrentTrendViewModel.cs" />
     <Compile Include="Models\Viewmodel\UserAccountViewModel.cs" />
