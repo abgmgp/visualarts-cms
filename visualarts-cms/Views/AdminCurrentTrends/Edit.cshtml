@@ -120,7 +120,7 @@
 <script>
     $(document).ready(function () {
         $('#ContentEditor').summernote({
-            height: 300,  // Set the editor height
+            height: 500,  // Set the editor height
             minHeight: 500, // Set minimum height
             focus: true,  // Set focus when initialized
             toolbar: [
@@ -130,6 +130,10 @@
                 ['insert', ['link', 'picture', 'video']],
             ]
         });
+    });
+
+    $(document).on('click', '.close', function () {
+        $('.modal').modal('hide');
     });
 </script>
 
