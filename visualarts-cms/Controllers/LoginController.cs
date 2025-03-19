@@ -54,18 +54,23 @@ namespace visualarts_cms.Controllers
                             }
                             else
                             {
+                                ViewBag.Message = "Incorrect password. Please try again.";
                                 return View("Index");
                             }
 
                         }
                     }
+
+                    ViewBag.Message = "No username of " + viewModel.Username + " found. Please try again.";
                     return View("Index");
                 }
+                ViewBag.Message = "Passwords do not match. Please try again.";
                 return View("Index");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                ViewBag.Message = "Error occured when logging in. Please contact system administrator for support.";
                 return View("Index");
             }
             finally

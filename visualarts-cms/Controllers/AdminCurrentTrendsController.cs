@@ -89,15 +89,31 @@ namespace visualarts_cms.Controllers
 
                 #region map full image path
 
+                string[] imageFormat = {".jpg", ".jpeg", ".png", ".gif"};
+                var audioFormat = ".mp3";
 
                 if (viewModel.ImageFile != null)
                 {
+                    string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+
+                    if (!imageFormat.Contains(fileExtension))
+                    {
+                        ViewBag.MessageCreate = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        return View("Create");
+                    }
                     var fullPathImage = Server.MapPath("~/Content/Upload/Image/" + viewModel.ImageFile.FileName);
                     viewModel.ImageFile.SaveAs(fullPathImage);
 
                 }
                 if (viewModel.AudioFile != null)
                 {
+                    string audioExtension = Path.GetExtension(viewModel.AudioFile.FileName).ToLower();
+
+                    if (audioFormat != audioExtension)
+                    {
+                        ViewBag.MessageCreate = "Incorrect audio format. Only mp3 files are allowed.";
+                        return View("Create");
+                    }
                     var fullPathAudio = Server.MapPath("~/Content/Upload/Audio/" + viewModel.AudioFile.FileName);
                     viewModel.AudioFile.SaveAs(fullPathAudio);
                 }
@@ -112,18 +128,20 @@ namespace visualarts_cms.Controllers
                 insertQuery.Parameters.Add(new SqlParameter("@Title", viewModel.Title));
                 insertQuery.Parameters.Add(new SqlParameter("@Content", viewModel.Content));
                 insertQuery.Parameters.Add(new SqlParameter("@EmbedUrl", viewModel.EmbedUrl ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile.FileName ?? ""));
-                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile.FileName ?? ""));
+                insertQuery.Parameters.Add(new SqlParameter("@AudioPath", viewModel.AudioFile != null ? viewModel.AudioFile.FileName : ""));
+                insertQuery.Parameters.Add(new SqlParameter("@ImagePath", viewModel.ImageFile != null ? viewModel.ImageFile.FileName : ""));
                 insertQuery.Parameters.Add(new SqlParameter("@IsActive", true));
                 insertQuery.Parameters.Add(new SqlParameter("@DateCreated", DateTime.Now));
 
                 insertQuery.ExecuteNonQuery();
 
-                return RedirectToAction("Index");
+                ViewBag.MessageIndex = "Saved successfully!";
+                return View("Index");
             }
             catch
             {
-                return RedirectToAction("Create");
+                ViewBag.MessageIndex = "Error when saving. Please try again later.";
+                return View("Create");
             }
         }
         #endregion create
@@ -194,8 +212,21 @@ namespace visualarts_cms.Controllers
                 #endregion
 
                 #region map full image path
+
+                string[] imageFormat = { ".jpg", ".jpeg", ".png", ".gif" };
+                var audioFormat = ".mp3";
+
                 if (viewModel.ImageFile != null)
                 {
+                    string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+
+                    if (!imageFormat.Contains(fileExtension))
+                    {
+                        ViewBag.MessageEdit = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        viewModel.ImagePath = currentDbRecord.ImagePath;
+                        viewModel.AudioPath = currentDbRecord.AudioPath;
+                        return View("Edit", viewModel);
+                    }
                     if (viewModel.ImageFile.FileName != currentDbRecord.ImagePath)
                     {
                         var fullPathImageOld = Server.MapPath("~/Content/Upload/Image/" + currentDbRecord.ImagePath);
@@ -210,6 +241,15 @@ namespace visualarts_cms.Controllers
                 }
                 if (viewModel.AudioFile != null)
                 {
+                    string audioExtension = Path.GetExtension(viewModel.AudioFile.FileName).ToLower();
+
+                    if (audioFormat != audioExtension)
+                    {
+                        ViewBag.MessageEdit = "Incorrect audio format. Only mp3 files are allowed.";
+                        viewModel.ImagePath = currentDbRecord.ImagePath;
+                        viewModel.AudioPath = currentDbRecord.AudioPath;
+                        return View("Edit", viewModel);
+                    }
                     if (viewModel.AudioFile.FileName != currentDbRecord.ImagePath)
                     {
                         var fullPathAudioOld = Server.MapPath("~/Content/Upload/Audio/" + currentDbRecord.AudioPath);
@@ -236,10 +276,12 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
+                ViewBag.MessageIndex = "Updated successfully!";
                 return RedirectToAction("Index");
             }
             catch
             {
+                ViewBag.MessageIndex = "Error when updating!";
                 return RedirectToAction("Edit");
             }
         }
