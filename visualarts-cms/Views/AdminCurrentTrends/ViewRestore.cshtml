@@ -44,7 +44,7 @@
         <div class="container pt-2">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">
-                    <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px;">
+                    <div class="card shadow mb-5 bg-body rounded  card-registration mb-lg-5" style="border-radius: 15px; width: 50vw">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">View Current Trends Entry</h3>
                             @using (Html.BeginForm("View", "AdminCurrentTrends", FormMethod.Post, new {enctype = "multipart/form-data"}))
@@ -59,7 +59,7 @@
                                     <div class="col-md-12 mb-3 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="courseCode">Content</label>
-                                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control required" })
+                                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control required", @readonly = "readonly", @id = "ContentEditor" })
                                         </div>
                                     </div>
                                     <div class="row mb-3 pb-2">
@@ -102,3 +102,8 @@
 </html>
 
 
+<script>
+    $(document).ready(function () {
+        $('#ContentEditor').summernote("disable");
+    });
+</script>
