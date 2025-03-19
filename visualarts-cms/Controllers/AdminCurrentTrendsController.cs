@@ -50,7 +50,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -84,7 +84,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -174,7 +174,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -322,7 +322,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -354,7 +354,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
