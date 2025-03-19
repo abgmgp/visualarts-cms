@@ -14,7 +14,7 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (TempData["NotLoggedIn"] != null)
+            if (TempData.ContainsKey("NotLoggedIn"))
             {
                 var placeholder = TempData["NotLoggedIn"].ToString();
                 if (!String.IsNullOrEmpty(placeholder))
