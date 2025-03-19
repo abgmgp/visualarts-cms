@@ -89,15 +89,17 @@ namespace visualarts_cms.Controllers
 
                 #region map full image path
 
-                string[] imageFormat = {"jpg", "jpeg", "png", "gif"};
-                var audioFormat = "mp3";
+                string[] imageFormat = {".jpg", ".jpeg", ".png", ".gif"};
+                var audioFormat = ".mp3";
 
                 if (viewModel.ImageFile != null)
                 {
-                    if(!imageFormat.Any(x => x.Contains(viewModel.ImageFile.FileName)))
+                    string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+
+                    if (!imageFormat.Contains(fileExtension))
                     {
-                        ViewBag.Message = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
-                        return RedirectToAction("Create");
+                        ViewBag.MessageCreate = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        return View("Create");
                     }
                     var fullPathImage = Server.MapPath("~/Content/Upload/Image/" + viewModel.ImageFile.FileName);
                     viewModel.ImageFile.SaveAs(fullPathImage);
@@ -105,10 +107,12 @@ namespace visualarts_cms.Controllers
                 }
                 if (viewModel.AudioFile != null)
                 {
-                    if (!viewModel.ImageFile.FileName.Contains(audioFormat))
+                    string audioExtension = Path.GetExtension(viewModel.AudioFile.FileName).ToLower();
+
+                    if (audioFormat != audioExtension)
                     {
-                        ViewBag.Message = "Incorrect audio format. Only mp3 files are allowed.";
-                        return RedirectToAction("Create");
+                        ViewBag.MessageCreate = "Incorrect audio format. Only mp3 files are allowed.";
+                        return View("Create");
                     }
                     var fullPathAudio = Server.MapPath("~/Content/Upload/Audio/" + viewModel.AudioFile.FileName);
                     viewModel.AudioFile.SaveAs(fullPathAudio);
@@ -131,13 +135,13 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
-                ViewBag.Message = "Saved successfully!";
-                return RedirectToAction("Index");
+                ViewBag.MessageIndex = "Saved successfully!";
+                return View("Index");
             }
             catch
             {
-                ViewBag.Message = "Error when saving. Please try again later.";
-                return RedirectToAction("Create");
+                ViewBag.MessageIndex = "Error when saving. Please try again later.";
+                return View("Create");
             }
         }
         #endregion create
@@ -209,15 +213,19 @@ namespace visualarts_cms.Controllers
 
                 #region map full image path
 
-                string[] imageFormat = { "jpg", "jpeg", "png", "gif" };
-                var audioFormat = "mp3";
+                string[] imageFormat = { ".jpg", ".jpeg", ".png", ".gif" };
+                var audioFormat = ".mp3";
 
                 if (viewModel.ImageFile != null)
                 {
-                    if (!imageFormat.Any(x => x.Contains(viewModel.ImageFile.FileName)))
+                    string fileExtension = Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+
+                    if (!imageFormat.Contains(fileExtension))
                     {
-                        ViewBag.Message = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
-                        return RedirectToAction("Create");
+                        ViewBag.MessageEdit = "Incorrect image format. Only jpg/jpeg, png and gif files are allowed.";
+                        viewModel.ImagePath = currentDbRecord.ImagePath;
+                        viewModel.AudioPath = currentDbRecord.AudioPath;
+                        return View("Edit", viewModel);
                     }
                     if (viewModel.ImageFile.FileName != currentDbRecord.ImagePath)
                     {
@@ -233,10 +241,14 @@ namespace visualarts_cms.Controllers
                 }
                 if (viewModel.AudioFile != null)
                 {
-                    if (!viewModel.ImageFile.FileName.Contains(audioFormat))
+                    string audioExtension = Path.GetExtension(viewModel.AudioFile.FileName).ToLower();
+
+                    if (audioFormat != audioExtension)
                     {
-                        ViewBag.Message = "Incorrect audio format. Only mp3 files are allowed.";
-                        return RedirectToAction("Create");
+                        ViewBag.MessageEdit = "Incorrect audio format. Only mp3 files are allowed.";
+                        viewModel.ImagePath = currentDbRecord.ImagePath;
+                        viewModel.AudioPath = currentDbRecord.AudioPath;
+                        return View("Edit", viewModel);
                     }
                     if (viewModel.AudioFile.FileName != currentDbRecord.ImagePath)
                     {
@@ -264,10 +276,12 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
+                ViewBag.MessageIndex = "Updated successfully!";
                 return RedirectToAction("Index");
             }
             catch
             {
+                ViewBag.MessageIndex = "Error when updating!";
                 return RedirectToAction("Edit");
             }
         }
