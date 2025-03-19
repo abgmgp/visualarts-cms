@@ -12,6 +12,13 @@ namespace visualarts_cms.Controllers
     {
         public ActionResult Index()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new List<InquiryViewModel>();
@@ -37,6 +44,13 @@ namespace visualarts_cms.Controllers
 
         public ActionResult History()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new List<InquiryViewModel>();
@@ -63,6 +77,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult View(int id)
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new InquiryViewModel();
@@ -88,6 +109,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult ViewHistory(int id)
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new InquiryViewModel();

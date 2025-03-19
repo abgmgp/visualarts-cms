@@ -15,6 +15,13 @@ namespace visualarts_cms.Controllers
     {
         public ActionResult Index()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new List<CurrentTrendViewModel>();
@@ -40,6 +47,13 @@ namespace visualarts_cms.Controllers
 
         public ActionResult Restore()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new List<CurrentTrendViewModel>();
@@ -67,6 +81,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
@@ -150,6 +171,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new CurrentTrendViewModel();
@@ -291,6 +319,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult View(int id)
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new CurrentTrendViewModel();
@@ -316,6 +351,13 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult ViewRestore(int id)
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
 
             var viewModel = new CurrentTrendViewModel();

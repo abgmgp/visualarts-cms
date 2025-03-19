@@ -12,6 +12,13 @@ namespace visualarts_cms.Controllers
     {
         public ActionResult Index()
         {
+            var loggedIn = CheckIfLoggedIn();
+            if (!loggedIn)
+            {
+                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                return RedirectToAction("Index", "Login");
+            }
+
             conn.Open();
             var viewmodel = new DashboardViewModel();
 
@@ -35,7 +42,7 @@ namespace visualarts_cms.Controllers
 
             #region trend list
             var currentTrends = new List<CurrentTrendViewModel>();
-            SqlCommand getQueryCTList = new SqlCommand("SELECT * FROM CurrentTrends WHERE IsActive = 1", conn);
+            SqlCommand getQueryCTList = new SqlCommand("SELECT top 5 * FROM CurrentTrends WHERE IsActive = 1 ORDER BY DateCreated Desc ", conn);
             SqlDataReader getQueryCTListreader = getQueryCTList.ExecuteReader();
             while (getQueryCTListreader.Read())
             {

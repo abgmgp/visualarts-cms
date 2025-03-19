@@ -23,7 +23,6 @@
                     <th></th>
                     <th style="display: none;"></th>
                     <th>Title</th>
-                    <th>Content</th>
                     <th>Created Date</th>
                     <th>Updated Date</th>
                     <th style="width: 50px;" class="no-sort"></th>
@@ -38,7 +37,6 @@
                         <td></td>
                         <td style="display: none;">@Html.DisplayFor(m => item.CurrentTrendId)</td>
                         <td>@Html.DisplayFor(m => item.Title)</td>
-                        <td>@Html.DisplayFor(m => item.Content)</td>
                         <td>@Html.DisplayFor(m => item.CreatedDateStr)</td>
                         <td>@Html.DisplayFor(m => item.UpdatedDateStr)</td>
                         <td style="width: 50px;"><a href="@Url.Action("View", "AdminCurrentTrends", new {id = item.CurrentTrendId})" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-richtext-fill"></i></a></td>

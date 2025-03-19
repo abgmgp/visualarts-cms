@@ -16,6 +16,10 @@
             {
                 <div class="mt-2 text-danger">@ViewBag.Message</div>
             }
+            if (!String.IsNullOrEmpty(ViewBag.Msg))
+            {
+                <div class="mt-2 text-danger">@ViewBag.Msg</div>
+            }
             <button class="btn btn-primary w-75 mt-4 mb-2">Login</button>
         }
     </div>
