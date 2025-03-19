@@ -13,5 +13,17 @@ namespace visualarts_cms.Controllers
     {
         public static string connectionString = ConfigurationManager.ConnectionStrings["sqlConnection"].ConnectionString;
         public SqlConnection conn = new SqlConnection(connectionString);
+
+        public bool CheckIfLoggedIn()
+        {
+            var loggedUser = HttpContext.Session["UserId"];
+
+            if (loggedUser == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

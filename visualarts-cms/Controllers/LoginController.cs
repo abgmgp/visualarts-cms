@@ -14,6 +14,11 @@ namespace visualarts_cms.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var placeholder = TempData["NotLoggedIn"].ToString();
+            if (!String.IsNullOrEmpty(placeholder))
+            {
+                ViewBag.Msg = placeholder;
+            }
             return View();
         }
 
