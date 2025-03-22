@@ -22,6 +22,15 @@ namespace visualarts_cms.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
+            if (TempData.ContainsKey("MessageIndex"))
+            {
+                var placeholder = TempData["MessageIndex"].ToString();
+                if (!String.IsNullOrEmpty(placeholder))
+                {
+                    ViewBag.MessageIndex = placeholder;
+                }
+            }
+
             conn.Open();
 
             var viewModel = new List<CurrentTrendViewModel>();
@@ -50,7 +59,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -84,7 +93,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -156,13 +165,13 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
-                ViewBag.MessageIndex = "Saved successfully!";
-                return View("Index");
+                TempData["MessageIndex"] = "Record saved successfully!";
+                return RedirectToAction("Index");
             }
             catch
             {
-                ViewBag.MessageIndex = "Error when saving. Please try again later.";
-                return View("Create");
+                TempData["MessageIndex"] = "Error when saving. Please try again later.";
+                return RedirectToAction("Index");
             }
         }
         #endregion create
@@ -174,7 +183,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -304,13 +313,13 @@ namespace visualarts_cms.Controllers
 
                 insertQuery.ExecuteNonQuery();
 
-                ViewBag.MessageIndex = "Updated successfully!";
+                TempData["MessageIndex"] = "Updated successfully!";
                 return RedirectToAction("Index");
             }
             catch
             {
-                ViewBag.MessageIndex = "Error when updating!";
-                return RedirectToAction("Edit");
+                TempData["MessageIndex"] = "Error when updating!";
+                return RedirectToAction("Index");
             }
         }
         #endregion edit
@@ -322,7 +331,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
@@ -354,7 +363,7 @@ namespace visualarts_cms.Controllers
             var loggedIn = CheckIfLoggedIn();
             if (!loggedIn)
             {
-                ViewBag.NotLoggedIn = "Access denied. Please login first.";
+                TempData["NotLoggedIn"] = "Access denied. Please login first.";
                 return RedirectToAction("Index", "Login");
             }
 
