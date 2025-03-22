@@ -229,6 +229,7 @@
     <Content Include="Views\AdminInquiries\View.cshtml" />
     <Content Include="Views\AdminInquiries\ViewHistory.cshtml" />
     <Content Include="Views\AdminInquiries\_deleteModal.cshtml" />
+    <Content Include="Views\Home\_promptModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
