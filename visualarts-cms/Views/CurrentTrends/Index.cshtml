@@ -7,6 +7,22 @@
         body {
             background-color: #3e5879;
         }
+
+        .trend-card {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .trend-container:hover .trend-card {
+            filter: brightness(0.3) blur(3px);
+            opacity: 0.7;
+        }
+
+        .trend-container:hover .trend-card:hover {
+            transform: scale(1.1);
+            filter: brightness(1) blur(0);
+            opacity: 1;
+            z-index: 2;
+        }
     </style>
 }
 
@@ -18,16 +34,16 @@
     <br />
     <div name="trends" class="my-1">
         <div class="container justify-content-center">
-            <div class="row row-cols-5 my-4">
+            <div class="row row-cols-5 my-4 trend-container">
                 @foreach (var item in Model)
                 {
-                    <a class="col text-center my-1" href="@Url.Action("Read", "CurrentTrends", new {id = item.CurrentTrendId})">
+                    <a class="col text-center my-1 trend-card" href="@Url.Action("Read", "CurrentTrends", new {id = item.CurrentTrendId})">
                         <div class="position-relative overflow-hidden rounded" style="height: 250px; width: 250px; position: relative;">
                             <img src="~/Content/Upload/Image/@item.ImagePath"
                                  class="img-fluid object-fit-cover"
                                  style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));"></div>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);color: white; font-size: 24px; font-weight: bold; text-align: center;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));"></div>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: bold; text-align: center;">
                                 <span class="text-uppercase">@item.Title</span>
                             </div>
                         </div>
