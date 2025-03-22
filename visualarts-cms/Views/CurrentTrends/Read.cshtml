@@ -18,6 +18,18 @@
         <div class="mt-2 mb-5">
             <h1 class="fw-bold">@Model.Title</h1>
         </div>
+        @if (!String.IsNullOrEmpty(Model.EmbedUrl) && Model.EmbedUrl != "")
+        {
+            <div class="my-4">
+                <iframe width="560" height="315" src="@Model.EmbedUrl"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
+            </div>
+        }
+
         @if (!String.IsNullOrEmpty(Model.AudioPath) && Model.AudioPath != "")
         {
             <div class="my-4">
@@ -25,9 +37,9 @@
                 <a href="~/Content/Upload/Audio/@Model.AudioPath"></a>
             </div>
         }
-            <div class="my-4">
-                <p class="my-3">@Html.Raw(Model.Content)</p>
-            </div>
+        <div class="my-4">
+            <p class="my-3">@Html.Raw(Model.Content)</p>
         </div>
+    </div>
     <br />
 </div>
