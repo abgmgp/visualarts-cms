@@ -18,6 +18,16 @@ namespace visualarts_cms.Controllers
         public ActionResult Index()
         {
             var viewmodel = new InquiryViewModel();
+
+            if (TempData.ContainsKey("MessageInq"))
+            {
+                var placeholder = TempData["MessageInq"].ToString();
+                if (!String.IsNullOrEmpty(placeholder))
+                {
+                    ViewBag.MessagePrompt = placeholder;
+                    TempData["MessageInq"] = placeholder;
+                }
+            }
             return View(viewmodel);
         }
 
@@ -69,6 +79,7 @@ namespace visualarts_cms.Controllers
                     mailMessage.To.Add(toEmail);
 
                     await smtpClient.SendMailAsync(mailMessage);
+                    TempData["MessageInq"] = "Inquiry sent successfully!";
                 }
                 catch (Exception ex)
                 {
@@ -80,8 +91,16 @@ namespace visualarts_cms.Controllers
             }
             catch
             {
+                TempData["MessageInq"] = "Inquiry failed to send. Please try again later.";
                 return RedirectToAction("Index");
             }
+        }
+
+        [HttpGet]
+        public ActionResult ShowModalPrompt()
+        {
+            ViewBag.MessagePrompt = TempData["MessageInq"];
+            return PartialView("_promptModal");
         }
     }
 }

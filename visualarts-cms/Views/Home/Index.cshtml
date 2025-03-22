@@ -78,7 +78,27 @@
     <p class="my-lg-5"></p>
     <p class="my-lg-5"></p>
     <p class="my-lg-5"></p>
+
+    <div class="modal fade" id="promptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 </div>
 
-<main>
-</main>
+<script>
+    $(document).ready(function () {
+        var message = '@ViewBag.MessagePrompt';
+        $.ajax({
+            url: '@Url.Action("ShowModalPrompt", "Home")',
+            type: 'GET',
+            success: function (data) {
+                $('#promptModal .modal-content').html(data);
+                if (message != "") {
+                    $('#promptModal').modal('show');
+                }
+            }
+        });
+    });
+</script>
